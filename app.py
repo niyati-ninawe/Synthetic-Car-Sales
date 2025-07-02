@@ -68,8 +68,9 @@ if tab == "Data Visualization":
                       title="Budget vs Income by Occupation")
     st.plotly_chart(fig5, use_container_width=True)
 
-    fig6 = px.bar(df["Preferred_Duration"].value_counts().reset_index(), x="index", y="Preferred_Duration",
-                  title="Preferred Subscription Duration")
+    durations = df["Preferred_Duration"].value_counts(dropna=False).reset_index()
+    durations.columns = ["Duration", "Count"]
+    fig6 = px.bar(durations, x="Duration", y="Count", title="Preferred Subscription Duration")
     st.plotly_chart(fig6, use_container_width=True)
 
     fig7 = px.histogram(df, x="NPS_Score", nbins=20, title="NPS Score Distribution")
@@ -81,6 +82,9 @@ if tab == "Data Visualization":
 
     st.write("Raw Data Preview")
     st.dataframe(df.head())
+
+# --- TAB 2: CLASSIFICATION ---
+# (Remaining code unchanged...)
 
 # --- TAB 2: CLASSIFICATION ---
 elif tab == "Classification":
